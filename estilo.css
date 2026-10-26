@@ -1,0 +1,464 @@
+/* =====================================================================
+   ESTILO DO SITE
+   As cores ficam guardadas aqui em cima, com nomes.
+   Para mudar uma cor no site inteiro, troque só o valor aqui.
+   ===================================================================== */
+
+:root {
+  --papel: #f3f6f5;        /* fundo da página */
+  --branco: #ffffff;       /* fundo do extrato */
+  --tinta: #17302c;        /* texto principal */
+  --tinta-suave: #4e615d;  /* texto secundário */
+  --linha: #d5dedb;        /* bordas e divisórias */
+  --lucro: #1e8a5a;        /* verde do lucro */
+  --taxa: #7b3f68;         /* roxo da parte da Shopee */
+  --custo: #a9b6b2;        /* cinza dos custos */
+  --perigo: #b42318;       /* vermelho de prejuízo e erro */
+  --aviso-fundo: #fbf1d9;
+  --aviso-texto: #5c4100;
+
+  --fonte: "Archivo", system-ui, sans-serif;
+}
+
+/* ---------- Base ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  padding: 0 16px;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fonte);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* ---------- Topo ---------- */
+
+.topo {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 48px 0 32px;
+}
+
+.topo h1 {
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(2.1rem, 7vw, 3.6rem);
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.subtitulo {
+  margin: 16px 0 0;
+  color: var(--tinta-suave);
+  font-size: 1.1rem;
+}
+
+/* ---------- Calculadora: duas colunas no computador, uma no celular ---------- */
+
+.calculadora {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .calculadora {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .topo {
+    padding: 32px 0 24px;
+  }
+}
+
+/* ---------- Escolha do marketplace ---------- */
+
+.lugares {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+
+.lugares legend {
+  margin-bottom: 10px;
+  padding: 0;
+  font-weight: 600;
+}
+
+.opcoes-lugar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.opcoes-lugar label {
+  position: relative;
+  cursor: pointer;
+}
+
+/* A bolinha do rádio fica escondida; o "botão" inteiro é clicável. */
+.opcoes-lugar input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.opcoes-lugar span {
+  display: block;
+  padding: 8px 14px;
+  background: var(--branco);
+  border: 1.5px solid var(--linha);
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.opcoes-lugar label:hover span {
+  border-color: var(--tinta-suave);
+}
+
+.opcoes-lugar input:checked + span {
+  background: var(--tinta);
+  border-color: var(--tinta);
+  color: var(--branco);
+}
+
+.opcoes-lugar input:focus-visible + span {
+  outline: 3px solid rgba(30, 138, 90, 0.45);
+  outline-offset: 2px;
+}
+
+/* ---------- Campos de digitar ---------- */
+
+.campo {
+  margin-bottom: 20px;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.opcional {
+  color: var(--tinta-suave);
+  font-weight: 400;
+}
+
+.caixa {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  background: var(--branco);
+  border: 1.5px solid var(--linha);
+  border-radius: 8px;
+}
+
+.caixa:focus-within {
+  border-color: var(--tinta);
+  outline: 3px solid rgba(30, 138, 90, 0.35);
+}
+
+.caixa span {
+  color: var(--tinta-suave);
+  font-weight: 600;
+}
+
+.caixa input,
+.campo select {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 0;
+  border: 0;
+  background: transparent;
+  color: var(--tinta);
+  font: inherit;
+  font-size: 1.35rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.caixa input:focus {
+  outline: none;
+}
+
+.caixa:has(input[aria-invalid="true"]) {
+  border-color: var(--perigo);
+}
+
+/* Listas de escolha (Tipo de anúncio, Peso, Plano). */
+.campo select {
+  padding: 12px 14px;
+  background: var(--branco);
+  border: 1.5px solid var(--linha);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.campo select:focus-visible {
+  border-color: var(--tinta);
+  outline: 3px solid rgba(30, 138, 90, 0.35);
+}
+
+/* Campos lado a lado (viram um embaixo do outro no celular). */
+.dupla {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 14px;
+}
+
+@media (max-width: 420px) {
+  .dupla {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.caixa-curta {
+  max-width: 160px;
+}
+
+.dica {
+  margin: -12px 0 20px;
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+}
+
+.extras {
+  padding-top: 4px;
+}
+
+.erro {
+  margin: 6px 0 0;
+  min-height: 0;
+  color: var(--perigo);
+  font-size: 0.9rem;
+}
+
+.erro:empty {
+  display: none;
+}
+
+.caixinha {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: var(--tinta-suave);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.caixinha input {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--lucro);
+  flex-shrink: 0;
+}
+
+/* ---------- Extrato (o resultado) ---------- */
+
+.extrato {
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.extrato h2 {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--tinta-suave);
+}
+
+.vazio {
+  margin: 0;
+  color: var(--tinta-suave);
+}
+
+.linhas {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Cada linha tem pontinhos ligando o nome ao valor, como num recibo. */
+.linha {
+  display: flex;
+  align-items: baseline;
+  padding: 5px 0;
+}
+
+.linha dt {
+  display: flex;
+  align-items: baseline;
+  flex: 1;
+  min-width: 0;
+}
+
+.linha dt::after {
+  content: "";
+  flex: 1;
+  margin: 0 8px;
+  border-bottom: 1.5px dotted var(--custo);
+}
+
+.linha dd {
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.linha.desconto dd {
+  color: var(--taxa);
+}
+
+.linha.subtotal {
+  margin-top: 4px;
+  padding-top: 9px;
+  border-top: 1px solid var(--linha);
+}
+
+.linha.total {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 2px solid var(--tinta);
+  align-items: center;
+}
+
+.linha.total dt {
+  flex-direction: column;
+  align-items: flex-start;
+  font-weight: 700;
+}
+
+.linha.total dt::after {
+  display: none;
+}
+
+.margem {
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.linha.total dd {
+  margin-left: auto;
+  color: var(--lucro);
+  font-size: 2.3rem;
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: 1;
+}
+
+.linha.total.negativo dd,
+.linha.total.negativo .margem {
+  color: var(--perigo);
+}
+
+/* ---------- Barra "para onde vai o dinheiro" ---------- */
+
+.barra {
+  display: flex;
+  height: 14px;
+  margin-top: 22px;
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--papel);
+}
+
+.parte {
+  height: 100%;
+  transition: width 0.25s ease;
+}
+
+.parte.taxa  { background: var(--taxa); }
+.parte.custo { background: var(--custo); }
+.parte.lucro { background: var(--lucro); }
+
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+}
+
+.legenda li::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.legenda li.taxa::before  { background: var(--taxa); }
+.legenda li.custo::before { background: var(--custo); }
+.legenda li.lucro::before { background: var(--lucro); }
+
+/* ---------- Aviso de armadilha e preço mínimo ---------- */
+
+.aviso {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: var(--aviso-fundo);
+  color: var(--aviso-texto);
+  border-radius: 8px;
+}
+
+.aviso p {
+  margin: 4px 0 0;
+}
+
+.minimo {
+  margin: 20px 0 0;
+  color: var(--tinta-suave);
+}
+
+.minimo strong {
+  color: var(--tinta);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Rodapé ---------- */
+
+.rodape {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 0 48px;
+  color: var(--tinta-suave);
+  font-size: 0.85rem;
+}
+
+.rodape p {
+  max-width: 70ch;
+  margin: 0 0 8px;
+}
+
+/* Quem pediu ao computador para reduzir animações não vê a barra animar. */
+@media (prefers-reduced-motion: reduce) {
+  .parte {
+    transition: none;
+  }
+}
