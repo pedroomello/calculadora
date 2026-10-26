@@ -45,8 +45,10 @@ function porcentagem(valor) {
 }
 
 // Arredonda para centavos, para não aparecer coisa como 4,4999999.
+// O toFixed corrige um defeito do computador com números como 4,185
+// (que ele guarda como 4,18499999...) para arredondar para 4,19, como no Excel.
 function centavos(valor) {
-  return Math.round(valor * 100) / 100;
+  return Math.round(Number((valor * 100).toFixed(8))) / 100;
 }
 
 // Numa lista de faixas como [{ desde: 0 }, { desde: 80 }],
