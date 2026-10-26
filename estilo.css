@@ -462,3 +462,94 @@ body {
     transition: none;
   }
 }
+
+/* ---------- Texto explicativo (embaixo da calculadora) ---------- */
+
+.explica {
+  max-width: 980px;
+  margin: 72px auto 0;
+  padding-top: 40px;
+  border-top: 1px solid var(--linha);
+}
+
+.explica > * {
+  max-width: 68ch;
+}
+
+.explica h2 {
+  margin: 48px 0 12px;
+  font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+  font-weight: 800;
+  font-stretch: 115%;
+  line-height: 1.1;
+}
+
+.explica h2:first-child {
+  margin-top: 0;
+}
+
+.explica h3 {
+  margin: 32px 0 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.explica p {
+  margin: 0 0 12px;
+  line-height: 1.65;
+}
+
+/* Tabelas podem rolar para o lado no celular, sem quebrar a página. */
+.tabela-rolagem {
+  overflow-x: auto;
+  margin: 12px 0 16px;
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+  background: var(--branco);
+}
+
+.explica .tabela-rolagem {
+  max-width: 720px;
+}
+
+.explica table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.95rem;
+}
+
+.explica th,
+.explica td {
+  padding: 10px 14px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--linha);
+}
+
+.explica tbody tr:last-child th,
+.explica tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.explica thead th {
+  color: var(--tinta-suave);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.explica tbody th {
+  font-weight: 600;
+}
+
+.nota-tabela {
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 760px) {
+  .explica {
+    margin-top: 48px;
+    padding-top: 32px;
+  }
+}

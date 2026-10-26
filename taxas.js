@@ -10,6 +10,10 @@
 //
 // Sempre confira no painel de vendedor de cada marketplace antes de
 // atualizar, e troque a data em "conferidoEm".
+//
+// IMPORTANTE: o texto explicativo no index.html (seção "Quanto cada
+// marketplace cobra em 2026") tem os números escritos à mão.
+// Quando mudar algo aqui, atualize lá também.
 // =====================================================================
 
 const TAXAS = {
