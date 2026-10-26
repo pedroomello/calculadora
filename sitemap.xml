@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Lista das páginas do site, para o Google encontrar todas.
+     Quando criar uma página nova, adicione um bloco <url> igual a este. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://pedroomello.github.io/calculadora/</loc>
+    <lastmod>2026-10-26</lastmod>
+  </url>
+</urlset>
