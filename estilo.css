@@ -717,3 +717,38 @@ body {
 .previa .nota-tabela {
   margin-top: 10px;
 }
+
+/* ---------- Links para as outras calculadoras ---------- */
+
+.outras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.explica .outras {
+  max-width: none;
+}
+
+.outras a {
+  display: block;
+  padding: 8px 14px;
+  background: var(--branco);
+  border: 1.5px solid var(--linha);
+  border-radius: 999px;
+  color: var(--tinta);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.outras a:hover {
+  border-color: var(--lucro);
+  color: var(--lucro);
+}
+
+.explica .tabela-larga {
+  max-width: 100%;
+}

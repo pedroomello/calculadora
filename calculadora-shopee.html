@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Título e descrição: é isso que aparece no resultado do Google. -->
+  <title>Calculadora de taxas da Shopee 2026 | Sobra Quanto</title>
+  <meta name="description" content="Digite o preço e o custo e veja na hora quanto a Shopee desconta, quanto cai na sua conta e o seu lucro. Tabela de comissão e taxa fixa de outubro de 2026.">
+
+  <!-- Endereço oficial da página (ajuda o Google a não achar que existem páginas repetidas). -->
+  <link rel="canonical" href="https://pedroomello.github.io/calculadora/calculadora-shopee.html">
+
+  <!-- Como o link aparece quando alguém compartilha no WhatsApp ou Facebook. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://pedroomello.github.io/calculadora/calculadora-shopee.html">
+  <meta property="og:title" content="Quanto sobra na sua venda na Shopee?">
+  <meta property="og:description" content="Digite o preço e o custo e veja na hora quanto a Shopee desconta, quanto cai na sua conta e o seu lucro. Tabela de comissão e taxa fixa de outubro de 2026.">
+
+  <!-- Fonte do site (Archivo, do Google Fonts). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+  <header class="topo">
+    <a class="marca" href="./">Sobra Quanto</a>
+    <h1>Quanto sobra na sua venda na Shopee?</h1>
+    <p class="subtitulo">Digite o preço e o custo. A conta das taxas da Shopee aparece na hora.</p>
+  </header>
+
+  <main class="calculadora">
+
+    <!-- ============ LADO ESQUERDO: O QUE A PESSOA DIGITA ============ -->
+    <form class="entradas" onsubmit="return false">
+
+      <!-- Onde a pessoa vende. O "value" de cada opção é usado no calculadora.js. -->
+      <fieldset class="lugares">
+        <legend>Onde você vende</legend>
+        <div class="opcoes-lugar">
+          <label><input type="radio" name="lugar" value="shopee" checked><span>Shopee</span></label>
+          <label><input type="radio" name="lugar" value="mercado-livre"><span>Mercado Livre</span></label>
+          <label><input type="radio" name="lugar" value="amazon"><span>Amazon</span></label>
+          <label><input type="radio" name="lugar" value="magalu"><span>Magalu</span></label>
+          <label><input type="radio" name="lugar" value="tiktok-shop"><span>TikTok Shop</span></label>
+          <label><input type="radio" name="lugar" value="shein"><span>Shein</span></label>
+          <label><input type="radio" name="lugar" value="outro"><span>Outro</span></label>
+        </div>
+      </fieldset>
+
+      <div class="campo">
+        <label for="preco">Preço de venda</label>
+        <div class="caixa">
+          <span aria-hidden="true">R$</span>
+          <input id="preco" type="text" inputmode="decimal" autocomplete="off" placeholder="49,90" value="49,90" aria-describedby="erro-preco">
+        </div>
+        <p class="erro" id="erro-preco" role="alert"></p>
+      </div>
+
+      <div class="campo">
+        <label for="custo">Quanto você pagou no produto</label>
+        <div class="caixa">
+          <span aria-hidden="true">R$</span>
+          <input id="custo" type="text" inputmode="decimal" autocomplete="off" placeholder="20,00" value="20,00" aria-describedby="erro-custo">
+        </div>
+        <p class="erro" id="erro-custo" role="alert"></p>
+      </div>
+
+      <div class="campo">
+        <label for="outros">Embalagem e outros gastos <span class="opcional">(opcional)</span></label>
+        <div class="caixa">
+          <span aria-hidden="true">R$</span>
+          <input id="outros" type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" aria-describedby="erro-outros">
+        </div>
+        <p class="erro" id="erro-outros" role="alert"></p>
+      </div>
+
+      <!-- ===== Campos extras: só aparece o bloco do marketplace escolhido ===== -->
+
+      <div class="extras" data-lugar="shopee">
+        <label class="caixinha">
+          <input id="shopee-cpf" type="checkbox">
+          <span>Vendo com CPF e passei de 450 pedidos nos últimos 90 dias</span>
+        </label>
+      </div>
+
+      <div class="extras" data-lugar="mercado-livre" hidden>
+        <div class="dupla">
+          <div class="campo">
+            <label for="ml-tipo">Tipo de anúncio</label>
+            <select id="ml-tipo">
+              <option value="classico">Clássico</option>
+              <option value="premium">Premium</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="ml-comissao">Tarifa de venda</label>
+            <div class="caixa">
+              <input id="ml-comissao" type="text" inputmode="decimal" autocomplete="off" aria-describedby="erro-ml-comissao dica-ml">
+              <span aria-hidden="true">%</span>
+            </div>
+            <p class="erro" id="erro-ml-comissao" role="alert"></p>
+          </div>
+        </div>
+        <p class="dica" id="dica-ml">Muda conforme a categoria. Veja a sua no anúncio, em "Tarifa de venda".</p>
+        <div class="campo">
+          <label for="ml-peso">Peso do pacote</label>
+          <select id="ml-peso"></select>
+        </div>
+      </div>
+
+      <div class="extras" data-lugar="amazon" hidden>
+        <div class="dupla">
+          <div class="campo">
+            <label for="amazon-comissao">Comissão da categoria</label>
+            <div class="caixa">
+              <input id="amazon-comissao" type="text" inputmode="decimal" autocomplete="off" aria-describedby="erro-amazon-comissao">
+              <span aria-hidden="true">%</span>
+            </div>
+            <p class="erro" id="erro-amazon-comissao" role="alert"></p>
+          </div>
+          <div class="campo">
+            <label for="amazon-plano">Seu plano</label>
+            <select id="amazon-plano">
+              <option value="individual">Individual (R$ 2 por item)</option>
+              <option value="profissional">Profissional (mensalidade)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="extras" data-lugar="magalu" hidden>
+        <div class="campo">
+          <label for="magalu-comissao">Sua comissão</label>
+          <div class="caixa caixa-curta">
+            <input id="magalu-comissao" type="text" inputmode="decimal" autocomplete="off" aria-describedby="erro-magalu-comissao">
+            <span aria-hidden="true">%</span>
+          </div>
+          <p class="erro" id="erro-magalu-comissao" role="alert"></p>
+        </div>
+      </div>
+
+      <div class="extras" data-lugar="tiktok-shop" hidden>
+        <label class="caixinha">
+          <input id="tiktok-frete" type="checkbox" checked>
+          <span>Participo do Programa de Taxas de Envio (vem marcado para todo mundo)</span>
+        </label>
+      </div>
+
+      <div class="extras" data-lugar="outro" hidden>
+        <div class="dupla">
+          <div class="campo">
+            <label for="outro-comissao">Comissão</label>
+            <div class="caixa">
+              <input id="outro-comissao" type="text" inputmode="decimal" autocomplete="off" placeholder="15" value="15" aria-describedby="erro-outro-comissao">
+              <span aria-hidden="true">%</span>
+            </div>
+            <p class="erro" id="erro-outro-comissao" role="alert"></p>
+          </div>
+          <div class="campo">
+            <label for="outro-fixa">Taxa fixa por venda</label>
+            <div class="caixa">
+              <span aria-hidden="true">R$</span>
+              <input id="outro-fixa" type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" aria-describedby="erro-outro-fixa">
+            </div>
+            <p class="erro" id="erro-outro-fixa" role="alert"></p>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- ============ LADO DIREITO: O RESULTADO ============ -->
+    <section class="extrato" aria-live="polite">
+
+      <p id="vazio" class="vazio">Digite o preço de venda para ver a conta.</p>
+
+      <div id="resultado">
+        <h2 id="r-titulo">Extrato da venda</h2>
+
+        <dl class="linhas">
+          <div class="linha">
+            <dt>Preço de venda</dt>
+            <dd id="r-preco"></dd>
+          </div>
+
+          <!-- As linhas de taxa mudam conforme o marketplace. O calculadora.js desenha aqui. -->
+          <div id="r-descontos"></div>
+
+          <div class="linha subtotal">
+            <dt>Cai na sua conta</dt>
+            <dd id="r-repasse"></dd>
+          </div>
+          <div class="linha desconto">
+            <dt>Produto e outros gastos</dt>
+            <dd id="r-custos"></dd>
+          </div>
+          <div class="linha total" id="linha-lucro">
+            <dt><span id="r-lucro-rotulo">Seu lucro</span> <span id="r-margem" class="margem"></span></dt>
+            <dd id="r-lucro"></dd>
+          </div>
+        </dl>
+
+        <!-- Barra mostrando para onde vai cada real da venda. -->
+        <div class="barra" aria-hidden="true">
+          <span id="barra-taxa" class="parte taxa"></span>
+          <span id="barra-custo" class="parte custo"></span>
+          <span id="barra-lucro" class="parte lucro"></span>
+        </div>
+        <ul class="legenda">
+          <li class="taxa" id="legenda-taxa"></li>
+          <li class="custo" id="legenda-custo"></li>
+          <li class="lucro" id="legenda-lucro"></li>
+        </ul>
+
+        <div id="aviso" class="aviso" hidden>
+          <strong>Cuidado com este preço.</strong>
+          <p id="aviso-texto"></p>
+        </div>
+
+        <p class="minimo" id="minimo">
+          Para não ter prejuízo, cobre no mínimo <strong id="r-minimo"></strong>.
+        </p>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Convite para a planilha paga -->
+  <aside class="faixa-planilha">
+    <p>
+      <strong>Tem muitos produtos?</strong>
+      A planilha Sobra Quanto faz essa conta para o seu catálogo inteiro e diz quanto cobrar para ganhar o que você quer.
+    </p>
+    <a href="planilha.html">Conhecer a planilha</a>
+  </aside>
+
+  <!-- ============ TEXTO EXPLICATIVO (ajuda o Google a entender a página) ============
+       ATENÇÃO: os números daqui são escritos à mão. Quando mudar o taxas.js,
+       atualize também este texto. -->
+  <article class="explica">
+    <!-- ATENÇÃO: os números daqui são escritos à mão. Quando mudar o taxas.js, atualize também. -->
+
+    <h2>Como a Shopee cobra em 2026</h2>
+    <p>
+      A Shopee cobra uma comissão e uma taxa fixa por item, que mudam conforme a faixa de preço do produto.
+      O frete grátis já está incluído na comissão. Esta é a tabela em vigor desde 1º de outubro de 2026:
+    </p>
+    <div class="tabela-rolagem">
+      <table>
+        <thead><tr><th scope="col">Preço do item</th><th scope="col">Comissão</th><th scope="col">Taxa fixa</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Até R$ 79,99</th><td>20%</td><td>R$ 4,50</td></tr>
+          <tr><th scope="row">R$ 80 a R$ 99,99</th><td>14%</td><td>R$ 16</td></tr>
+          <tr><th scope="row">R$ 100 a R$ 199,99</th><td>14%</td><td>R$ 20</td></tr>
+          <tr><th scope="row">R$ 200 ou mais</th><td>14%</td><td>R$ 26</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Abaixo de R$ 9, a taxa fixa vira metade do preço do item.</p>
+
+    <h3>Exemplos de venda na Shopee</h3>
+    <div class="tabela-rolagem">
+      <table>
+        <thead>
+          <tr><th scope="col">Preço de venda</th><th scope="col">Taxas</th><th scope="col">Cai na sua conta</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">R$ 30,00</th><td>R$ 10,50</td><td>R$ 19,50</td></tr>
+          <tr><th scope="row">R$ 50,00</th><td>R$ 14,50</td><td>R$ 35,50</td></tr>
+          <tr><th scope="row">R$ 79,99</th><td>R$ 20,50</td><td>R$ 59,49</td></tr>
+          <tr><th scope="row">R$ 80,00</th><td>R$ 27,20</td><td>R$ 52,80</td></tr>
+          <tr><th scope="row">R$ 100,00</th><td>R$ 34,00</td><td>R$ 66,00</td></tr>
+          <tr><th scope="row">R$ 200,00</th><td>R$ 54,00</td><td>R$ 146,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota-tabela">Vendedor sem o acréscimo de CPF. Não inclui o custo do produto, impostos nem anúncios.</p>
+
+    <h2>Perguntas frequentes</h2>
+    <h3>Quanto a Shopee cobra por venda?</h3>
+    <p>Até R$ 79,99, são 20% do preço mais R$ 4,50 por item. Num produto de R$ 50, isso dá R$ 14,50, e caem R$ 35,50 na sua conta.</p>
+    <h3>Por que vender a R$ 80 rende menos do que a R$ 79,99?</h3>
+    <p>Em R$ 80 a taxa fixa pula de R$ 4,50 para R$ 16. Cobrando R$ 79,99 você recebe R$ 59,49, e cobrando R$ 80 recebe R$ 52,80. O mesmo acontece em R$ 100 e em R$ 200. A calculadora avisa quando o seu preço cai numa dessas armadilhas.</p>
+    <h3>Quem vende com CPF paga mais?</h3>
+    <p>Só quem vende com CPF e passa de 450 pedidos em 90 dias: paga R$ 3 a mais por item. Marque a caixinha na calculadora para incluir isso.</p>
+
+    <h2>Outras calculadoras</h2>
+    <ul class="outras">
+      <li><a href="./">Todos os marketplaces</a></li>
+      <li><a href="calculadora-mercado-livre.html">Calculadora do Mercado Livre</a></li>
+      <li><a href="calculadora-amazon.html">Calculadora da Amazon</a></li>
+      <li><a href="calculadora-magalu.html">Calculadora do Magalu</a></li>
+      <li><a href="calculadora-tiktok-shop.html">Calculadora do TikTok Shop</a></li>
+      <li><a href="calculadora-shein.html">Calculadora da Shein</a></li>
+    </ul>
+
+  </article>
+
+  <footer class="rodape">
+    <p>
+      Taxas conferidas em <span id="data-taxas"></span>. <span id="nota-taxas"></span>
+    </p>
+    <p>
+      A conta não inclui impostos nem anúncios. As taxas podem mudar, então confira sempre no painel de vendedor.
+      Ferramenta independente, sem ligação com nenhum marketplace.
+    </p>
+  </footer>
+
+  <!-- Primeiro as taxas, depois a calculadora (ela usa as taxas). -->
+  <script src="taxas.js"></script>
+  <script src="calculadora.js"></script>
+</body>
+</html>

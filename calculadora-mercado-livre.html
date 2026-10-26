@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Título e descrição: é isso que aparece no resultado do Google. -->
+  <title>Calculadora de taxas do Mercado Livre 2026 | Sobra Quanto</title>
+  <meta name="description" content="Veja quanto o Mercado Livre desconta em cada venda: tarifa do Clássico e do Premium, custo por unidade e frete grátis conforme o peso. Taxas de 2026.">
+
+  <!-- Endereço oficial da página (ajuda o Google a não achar que existem páginas repetidas). -->
+  <link rel="canonical" href="https://pedroomello.github.io/calculadora/calculadora-mercado-livre.html">
+
+  <!-- Como o link aparece quando alguém compartilha no WhatsApp ou Facebook. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://pedroomello.github.io/calculadora/calculadora-mercado-livre.html">
+  <meta property="og:title" content="Quanto sobra na sua venda no Mercado Livre?">
+  <meta property="og:description" content="Veja quanto o Mercado Livre desconta em cada venda: tarifa do Clássico e do Premium, custo por unidade e frete grátis conforme o peso. Taxas de 2026.">
+
+  <!-- Fonte do site (Archivo, do Google Fonts). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+  <header class="topo">
+    <a class="marca" href="./">Sobra Quanto</a>
+    <h1>Quanto sobra na sua venda no Mercado Livre?</h1>
+    <p class="subtitulo">Digite o preço e o custo. A conta das taxas do Mercado Livre aparece na hora.</p>
+  </header>
+
+  <main class="calculadora">
+
+    <!-- ============ LADO ESQUERDO: O QUE A PESSOA DIGITA ============ -->
+    <form class="entradas" onsubmit="return false">
+
+      <!-- Onde a pessoa vende. O "value" de cada opção é usado no calculadora.js. -->
+      <fieldset class="lugares">
+        <legend>Onde você vende</legend>
+        <div class="opcoes-lugar">
+          <label><input type="radio" name="lugar" value="shopee"><span>Shopee</span></label>
+          <label><input type="radio" name="lugar" value="mercado-livre" checked><span>Mercado Livre</span></label>
+          <label><input type="radio" name="lugar" value="amazon"><span>Amazon</span></label>
+          <label><input type="radio" name="lugar" value="magalu"><span>Magalu</span></label>
+          <label><input type="radio" name="lugar" value="tiktok-shop"><span>TikTok Shop</span></label>
+          <label><input type="radio" name="lugar" value="shein"><span>Shein</span></label>
+          <label><input type="radio" name="lugar" value="outro"><span>Outro</span></label>
+        </div>
+      </fieldset>
+
+      <div class="campo">
+        <label for="preco">Preço de venda</label>
+        <div class="caixa">
+          <span aria-hidden="true">R$</span>
+          <input id="preco" type="text" inputmode="decimal" autocomplete="off" placeholder="49,90" value="49,90" aria-describedby="erro-preco">
+        </div>
+        <p class="erro" id="erro-preco" role="alert"></p>
+      </div>
+
+      <div class="campo">
+        <label for="custo">Quanto você pagou no produto</label>
+        <div class="caixa">
+          <span aria-hidden="true">R$</span>
+          <input id="custo" type="text" inputmode="decimal" autocomplete="off" placeholder="20,00" value="20,00" aria-describedby="erro-custo">
+        </div>
+        <p class="erro" id="erro-custo" role="alert"></p>
+      </div>
+
+      <div class="campo">
+        <label for="outros">Embalagem e outros gastos <span class="opcional">(opcional)</span></label>
+        <div class="caixa">
+          <span aria-hidden="true">R$</span>
+          <input id="outros" type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" aria-describedby="erro-outros">
+        </div>
+        <p class="erro" id="erro-outros" role="alert"></p>
+      </div>
+
+      <!-- ===== Campos extras: só aparece o bloco do marketplace escolhido ===== -->
+
+      <div class="extras" data-lugar="shopee">
+        <label class="caixinha">
+          <input id="shopee-cpf" type="checkbox">
+          <span>Vendo com CPF e passei de 450 pedidos nos últimos 90 dias</span>
+        </label>
+      </div>
+
+      <div class="extras" data-lugar="mercado-livre" hidden>
+        <div class="dupla">
+          <div class="campo">
+            <label for="ml-tipo">Tipo de anúncio</label>
+            <select id="ml-tipo">
+              <option value="classico">Clássico</option>
+              <option value="premium">Premium</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="ml-comissao">Tarifa de venda</label>
+            <div class="caixa">
+              <input id="ml-comissao" type="text" inputmode="decimal" autocomplete="off" aria-describedby="erro-ml-comissao dica-ml">
+              <span aria-hidden="true">%</span>
+            </div>
+            <p class="erro" id="erro-ml-comissao" role="alert"></p>
+          </div>
+        </div>
+        <p class="dica" id="dica-ml">Muda conforme a categoria. Veja a sua no anúncio, em "Tarifa de venda".</p>
+        <div class="campo">
+          <label for="ml-peso">Peso do pacote</label>
+          <select id="ml-peso"></select>
+        </div>
+      </div>
+
+      <div class="extras" data-lugar="amazon" hidden>
+        <div class="dupla">
+          <div class="campo">
+            <label for="amazon-comissao">Comissão da categoria</label>
+            <div class="caixa">
+              <input id="amazon-comissao" type="text" inputmode="decimal" autocomplete="off" aria-describedby="erro-amazon-comissao">
+              <span aria-hidden="true">%</span>
+            </div>
+            <p class="erro" id="erro-amazon-comissao" role="alert"></p>
+          </div>
+          <div class="campo">
+            <label for="amazon-plano">Seu plano</label>
+            <select id="amazon-plano">
+              <option value="individual">Individual (R$ 2 por item)</option>
+              <option value="profissional">Profissional (mensalidade)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="extras" data-lugar="magalu" hidden>
+        <div class="campo">
+          <label for="magalu-comissao">Sua comissão</label>
+          <div class="caixa caixa-curta">
+            <input id="magalu-comissao" type="text" inputmode="decimal" autocomplete="off" aria-describedby="erro-magalu-comissao">
+            <span aria-hidden="true">%</span>
+          </div>
+          <p class="erro" id="erro-magalu-comissao" role="alert"></p>
+        </div>
+      </div>
+
+      <div class="extras" data-lugar="tiktok-shop" hidden>
+        <label class="caixinha">
+          <input id="tiktok-frete" type="checkbox" checked>
+          <span>Participo do Programa de Taxas de Envio (vem marcado para todo mundo)</span>
+        </label>
+      </div>
+
+      <div class="extras" data-lugar="outro" hidden>
+        <div class="dupla">
+          <div class="campo">
+            <label for="outro-comissao">Comissão</label>
+            <div class="caixa">
+              <input id="outro-comissao" type="text" inputmode="decimal" autocomplete="off" placeholder="15" value="15" aria-describedby="erro-outro-comissao">
+              <span aria-hidden="true">%</span>
+            </div>
+            <p class="erro" id="erro-outro-comissao" role="alert"></p>
+          </div>
+          <div class="campo">
+            <label for="outro-fixa">Taxa fixa por venda</label>
+            <div class="caixa">
+              <span aria-hidden="true">R$</span>
+              <input id="outro-fixa" type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" aria-describedby="erro-outro-fixa">
+            </div>
+            <p class="erro" id="erro-outro-fixa" role="alert"></p>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- ============ LADO DIREITO: O RESULTADO ============ -->
+    <section class="extrato" aria-live="polite">
+
+      <p id="vazio" class="vazio">Digite o preço de venda para ver a conta.</p>
+
+      <div id="resultado">
+        <h2 id="r-titulo">Extrato da venda</h2>
+
+        <dl class="linhas">
+          <div class="linha">
+            <dt>Preço de venda</dt>
+            <dd id="r-preco"></dd>
+          </div>
+
+          <!-- As linhas de taxa mudam conforme o marketplace. O calculadora.js desenha aqui. -->
+          <div id="r-descontos"></div>
+
+          <div class="linha subtotal">
+            <dt>Cai na sua conta</dt>
+            <dd id="r-repasse"></dd>
+          </div>
+          <div class="linha desconto">
+            <dt>Produto e outros gastos</dt>
+            <dd id="r-custos"></dd>
+          </div>
+          <div class="linha total" id="linha-lucro">
+            <dt><span id="r-lucro-rotulo">Seu lucro</span> <span id="r-margem" class="margem"></span></dt>
+            <dd id="r-lucro"></dd>
+          </div>
+        </dl>
+
+        <!-- Barra mostrando para onde vai cada real da venda. -->
+        <div class="barra" aria-hidden="true">
+          <span id="barra-taxa" class="parte taxa"></span>
+          <span id="barra-custo" class="parte custo"></span>
+          <span id="barra-lucro" class="parte lucro"></span>
+        </div>
+        <ul class="legenda">
+          <li class="taxa" id="legenda-taxa"></li>
+          <li class="custo" id="legenda-custo"></li>
+          <li class="lucro" id="legenda-lucro"></li>
+        </ul>
+
+        <div id="aviso" class="aviso" hidden>
+          <strong>Cuidado com este preço.</strong>
+          <p id="aviso-texto"></p>
+        </div>
+
+        <p class="minimo" id="minimo">
+          Para não ter prejuízo, cobre no mínimo <strong id="r-minimo"></strong>.
+        </p>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Convite para a planilha paga -->
+  <aside class="faixa-planilha">
+    <p>
+      <strong>Tem muitos produtos?</strong>
+      A planilha Sobra Quanto faz essa conta para o seu catálogo inteiro e diz quanto cobrar para ganhar o que você quer.
+    </p>
+    <a href="planilha.html">Conhecer a planilha</a>
+  </aside>
+
+  <!-- ============ TEXTO EXPLICATIVO (ajuda o Google a entender a página) ============
+       ATENÇÃO: os números daqui são escritos à mão. Quando mudar o taxas.js,
+       atualize também este texto. -->
+  <article class="explica">
+    <!-- ATENÇÃO: os números daqui são escritos à mão. Quando mudar o taxas.js, atualize também. -->
+
+    <h2>Como o Mercado Livre cobra em 2026</h2>
+    <p>
+      O Mercado Livre cobra uma tarifa de venda que depende da categoria e do tipo de anúncio:
+      de 10% a 14% no Clássico e de 15% a 19% no Premium, que dá ao comprador parcelamento sem juros.
+      Você encontra a tarifa da sua categoria no próprio anúncio.
+    </p>
+    <h3>Abaixo de R$ 79: custo por unidade</h3>
+    <p>Além da tarifa, entra um custo por unidade que muda conforme o preço e o peso do pacote:</p>
+    <div class="tabela-rolagem">
+      <table>
+        <thead><tr><th scope="col">Peso do pacote</th><th scope="col">Até R$ 18,99</th><th scope="col">R$ 19 a R$ 48,99</th><th scope="col">R$ 49 a R$ 78,99</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Até 300 g</th><td>R$ 5,65</td><td>R$ 6,85</td><td>R$ 8,15</td></tr>
+          <tr><th scope="row">300 g a 500 g</th><td>R$ 5,95</td><td>R$ 6,95</td><td>R$ 8,25</td></tr>
+          <tr><th scope="row">500 g a 1 kg</th><td>R$ 6,05</td><td>R$ 7,15</td><td>R$ 8,45</td></tr>
+          <tr><th scope="row">1 kg a 1,5 kg</th><td>R$ 6,15</td><td>R$ 7,35</td><td>R$ 8,65</td></tr>
+          <tr><th scope="row">1,5 kg a 2 kg</th><td>R$ 6,25</td><td>R$ 7,45</td><td>R$ 8,75</td></tr>
+          <tr><th scope="row">2 kg a 3 kg</th><td>R$ 6,35</td><td>R$ 8,65</td><td>R$ 9,15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Até R$ 18,99, esse custo nunca passa de metade do preço do produto.</p>
+    <h3>A partir de R$ 79: frete grátis</h3>
+    <p>O frete grátis passa a ser obrigatório e você paga uma parte dele, conforme o peso e o preço. Para reputação verde ou sem reputação:</p>
+    <div class="tabela-rolagem tabela-larga">
+      <table>
+        <thead><tr><th scope="col">Peso do pacote</th><th scope="col">R$ 79 a 99,99</th><th scope="col">R$ 100 a 119,99</th><th scope="col">R$ 120 a 149,99</th><th scope="col">R$ 150 a 199,99</th><th scope="col">R$ 200 ou mais</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Até 300 g</th><td>R$ 12,95</td><td>R$ 14,95</td><td>R$ 16,95</td><td>R$ 19,05</td><td>R$ 21,65</td></tr>
+          <tr><th scope="row">300 g a 500 g</th><td>R$ 13,85</td><td>R$ 16,15</td><td>R$ 18,15</td><td>R$ 20,45</td><td>R$ 23,25</td></tr>
+          <tr><th scope="row">500 g a 1 kg</th><td>R$ 14,45</td><td>R$ 16,85</td><td>R$ 19,05</td><td>R$ 21,35</td><td>R$ 24,45</td></tr>
+          <tr><th scope="row">1 kg a 1,5 kg</th><td>R$ 14,75</td><td>R$ 17,15</td><td>R$ 19,45</td><td>R$ 21,75</td><td>R$ 25,45</td></tr>
+          <tr><th scope="row">1,5 kg a 2 kg</th><td>R$ 15,05</td><td>R$ 17,65</td><td>R$ 19,85</td><td>R$ 22,25</td><td>R$ 25,55</td></tr>
+          <tr><th scope="row">2 kg a 3 kg</th><td>R$ 16,45</td><td>R$ 19,15</td><td>R$ 21,65</td><td>R$ 24,35</td><td>R$ 27,05</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Com reputação amarela ou pior, o frete fica mais caro.</p>
+
+    <h3>Exemplos de venda no Mercado Livre</h3>
+    <div class="tabela-rolagem">
+      <table>
+        <thead>
+          <tr><th scope="col">Preço de venda</th><th scope="col">Taxas</th><th scope="col">Cai na sua conta</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">R$ 30,00</th><td>R$ 10,45</td><td>R$ 19,55</td></tr>
+          <tr><th scope="row">R$ 50,00</th><td>R$ 14,15</td><td>R$ 35,85</td></tr>
+          <tr><th scope="row">R$ 78,99</th><td>R$ 17,63</td><td>R$ 61,36</td></tr>
+          <tr><th scope="row">R$ 79,00</th><td>R$ 22,43</td><td>R$ 56,57</td></tr>
+          <tr><th scope="row">R$ 100,00</th><td>R$ 26,95</td><td>R$ 73,05</td></tr>
+          <tr><th scope="row">R$ 200,00</th><td>R$ 45,65</td><td>R$ 154,35</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="nota-tabela">Anúncio Clássico com tarifa de 12% e pacote de até 300 g. Não inclui o custo do produto, impostos nem anúncios.</p>
+
+    <h2>Perguntas frequentes</h2>
+    <h3>Quanto o Mercado Livre cobra por venda?</h3>
+    <p>A tarifa da categoria (de 10% a 19%) mais um custo por unidade abaixo de R$ 79, ou a sua parte do frete grátis a partir de R$ 79. Num produto de R$ 50 no Clássico de 12%, com pacote de até 300 g, as taxas somam R$ 14,15.</p>
+    <h3>Clássico ou Premium?</h3>
+    <p>O Premium cobra uns 5 pontos a mais, mas oferece parcelamento sem juros e mais destaque. Teste os dois na calculadora: troque o tipo de anúncio e veja quanto muda o seu lucro.</p>
+    <h3>O que muda a partir de R$ 79?</h3>
+    <p>Sai o custo por unidade e entra a sua parte do frete grátis, que costuma ser maior. Por isso, cobrando R$ 78,99 você pode receber mais do que cobrando R$ 79. A calculadora avisa quando isso acontece.</p>
+
+    <h2>Outras calculadoras</h2>
+    <ul class="outras">
+      <li><a href="./">Todos os marketplaces</a></li>
+      <li><a href="calculadora-shopee.html">Calculadora da Shopee</a></li>
+      <li><a href="calculadora-amazon.html">Calculadora da Amazon</a></li>
+      <li><a href="calculadora-magalu.html">Calculadora do Magalu</a></li>
+      <li><a href="calculadora-tiktok-shop.html">Calculadora do TikTok Shop</a></li>
+      <li><a href="calculadora-shein.html">Calculadora da Shein</a></li>
+    </ul>
+
+  </article>
+
+  <footer class="rodape">
+    <p>
+      Taxas conferidas em <span id="data-taxas"></span>. <span id="nota-taxas"></span>
+    </p>
+    <p>
+      A conta não inclui impostos nem anúncios. As taxas podem mudar, então confira sempre no painel de vendedor.
+      Ferramenta independente, sem ligação com nenhum marketplace.
+    </p>
+  </footer>
+
+  <!-- Primeiro as taxas, depois a calculadora (ela usa as taxas). -->
+  <script src="taxas.js"></script>
+  <script src="calculadora.js"></script>
+</body>
+</html>

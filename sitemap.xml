@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Lista das páginas do site, para o Google encontrar todas.
-     Quando criar uma página nova, adicione um bloco <url> igual a este. -->
+     Quando criar uma página nova, adicione um bloco <url> igual a estes. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://pedroomello.github.io/calculadora/</loc>
@@ -8,6 +8,30 @@
   </url>
   <url>
     <loc>https://pedroomello.github.io/calculadora/planilha.html</loc>
+    <lastmod>2026-10-26</lastmod>
+  </url>
+  <url>
+    <loc>https://pedroomello.github.io/calculadora/calculadora-shopee.html</loc>
+    <lastmod>2026-10-26</lastmod>
+  </url>
+  <url>
+    <loc>https://pedroomello.github.io/calculadora/calculadora-mercado-livre.html</loc>
+    <lastmod>2026-10-26</lastmod>
+  </url>
+  <url>
+    <loc>https://pedroomello.github.io/calculadora/calculadora-amazon.html</loc>
+    <lastmod>2026-10-26</lastmod>
+  </url>
+  <url>
+    <loc>https://pedroomello.github.io/calculadora/calculadora-magalu.html</loc>
+    <lastmod>2026-10-26</lastmod>
+  </url>
+  <url>
+    <loc>https://pedroomello.github.io/calculadora/calculadora-tiktok-shop.html</loc>
+    <lastmod>2026-10-26</lastmod>
+  </url>
+  <url>
+    <loc>https://pedroomello.github.io/calculadora/calculadora-shein.html</loc>
     <lastmod>2026-10-26</lastmod>
   </url>
 </urlset>
